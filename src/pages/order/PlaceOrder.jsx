@@ -199,93 +199,113 @@ const PlaceOrder = () => {
     }
   };
 
-  return (
-    <div className="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow-2xl rounded-3xl overflow-hidden">
-          <div className="md:flex">
-            <div className="md:w-1/2 bg-[rgb(51,51,51)] text-white p-8 md:p-12">
-              <h2 className="text-3xl font-extrabold mb-8">Order Summary</h2>
-              <div className="space-y-6">
-                {cart.map((product, index) => (
-                  <div key={index} className="flex items-center space-x-4">
-                    <img
-                      src={`https://localhost:5000/products/${product.productId.productImage}`}
-                      alt={product.productId.productName}
-                      className="w-20 h-20 object-cover rounded-lg"
-                    />
-                    <div className="flex-grow">
-                      <h3 className="font-semibold">
-                        {DOMPurify.sanitize(product.productId.productName)}
-                      </h3>
-                      <p className="text-gray-400">Qty: {product.quantity}</p>
-                    </div>
-                    <span className="font-bold">
-                      $
-                      {(
-                        product.productId.productPrice * product.quantity
-                      ).toFixed(2)}
-                    </span>
-                  </div>
-                ))}
+return (
+  <div className="bg-[#fff6ed] min-h-screen font-sans">
+    {/* Header */}
+    <header className="bg-gradient-to-r from-amber-900 via-orange-900 to-red-900 py-4 px-6 text-white flex justify-between items-center shadow-md">
+      <div className="text-2xl font-bold tracking-wide">📚 The Bookist</div>
+      <div className="flex space-x-6 text-sm font-medium">
+        <button className="hover:text-orange-200 transition">Browse Books</button>
+        <button className="hover:text-orange-200 transition">My Cart</button>
+        <button className="hover:text-orange-200 transition">My Profile</button>
+      </div>
+    </header>
+
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="grid md:grid-cols-2 gap-10 items-start">
+        {/* Order Summary */}
+        <div className="bg-[#cf5c14] text-white p-10 rounded-3xl shadow-lg">
+          <h2 className="text-4xl font-bold mb-6">🧾 Order Summary</h2>
+          <div className="space-y-6 max-h-[500px] overflow-y-auto pr-2">
+            {cart.map((product, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-5 bg-[#ffffff1a] p-4 rounded-xl hover:bg-[#ffffff22] transition"
+              >
+                <img
+                  src={`https://localhost:5000/products/${product.productId.productImage}`}
+                  alt={product.productId.productName}
+                  className="w-28 h-28 object-cover rounded-2xl shadow-md"
+                />
+                <div className="flex-grow">
+                  <h3 className="font-semibold text-lg">
+                    {DOMPurify.sanitize(product.productId.productName)}
+                  </h3>
+                  <p className="text-sm text-orange-200">
+                    Qty: {product.quantity}
+                  </p>
+                </div>
+                <span className="font-bold text-yellow-200 text-lg">
+                  ${(
+                    product.productId.productPrice * product.quantity
+                  ).toFixed(2)}
+                </span>
               </div>
-              <div className="mt-8 pt-8 border-t border-gray-700">
-                <div className="flex justify-between text-gray-400">
-                  <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between mt-2 text-gray-400">
-                  <span>Delivery Fee</span>
-                  <span>${formData.deliveryFee.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between mt-4 text-2xl font-bold">
-                  <span>Total</span>
-                  <span>${(subtotal + formData.deliveryFee).toFixed(2)}</span>
-                </div>
-              </div>
+            ))}
+          </div>
+          <div className="mt-6 pt-6 border-t border-orange-200">
+            <div className="flex justify-between text-orange-100 text-sm mb-2">
+              <span>Subtotal</span>
+              <span>${subtotal.toFixed(2)}</span>
             </div>
-            <div className="md:w-1/2 p-8 md:p-12">
-              <h2 className="text-3xl font-extrabold text-gray-900 mb-8">
-                Delivery Details
-              </h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {Object.entries(formData).map(
-                  ([key, value]) =>
-                    key !== "deliveryFee" && (
-                      <div key={key}>
-                        <label
-                          htmlFor={key}
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          {key.charAt(0).toUpperCase() +
-                            key.slice(1).replace(/[A-Z]/g, " $&")}
-                        </label>
-                        <input
-                          id={key}
-                          type={key === "email" ? "email" : "text"}
-                          name={key}
-                          value={value}
-                          onChange={handleChange}
-                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                        />
-                      </div>
-                    )
-                )}
-                <div className="mt-8">
-                  <button
-                    type="submit"
-                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-150 ease-in-out"
-                  >
-                    Place Order and Pay
-                  </button>
-                </div>
-              </form>
+            <div className="flex justify-between text-orange-100 text-sm mb-2">
+              <span>Delivery Fee</span>
+              <span>${formData.deliveryFee.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between text-2xl font-bold mt-4">
+              <span>Total</span>
+              <span>${(subtotal + formData.deliveryFee).toFixed(2)}</span>
             </div>
           </div>
         </div>
+
+        {/* Delivery Details */}
+        <div className="bg-white p-10 rounded-3xl shadow-lg">
+          <h2 className="text-3xl font-bold text-[#5a2c08] mb-6">
+            📦 Delivery Details
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {Object.entries(formData).map(
+              ([key, value]) =>
+                key !== "deliveryFee" && (
+                  <div key={key}>
+                    <label
+                      htmlFor={key}
+                      className="block text-sm font-medium text-[#5a2c08]"
+                    >
+                      {key.charAt(0).toUpperCase() +
+                        key.slice(1).replace(/[A-Z]/g, " $&")}
+                    </label>
+                    <input
+                      id={key}
+                      type={key === "email" ? "email" : "text"}
+                      name={key}
+                      value={value}
+                      onChange={handleChange}
+                      className="mt-1 block w-full rounded-md shadow-sm focus:ring-[#cf5c14] focus:border-[#cf5c14] sm:text-sm px-4 py-2 bg-white"
+                      style={{ border: "none" }}
+                    />
+                  </div>
+                )
+            )}
+            <div className="mt-8">
+              <button
+                type="submit"
+                className="w-full py-3 px-4 bg-[#cf5c14] hover:bg-[#b74f10] text-white font-semibold rounded-xl transition duration-200"
+              >
+                🚀 Place Order and Pay
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  );
+  </div>
+);
+
+
+
+
 };
 
 export default PlaceOrder;

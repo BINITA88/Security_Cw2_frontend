@@ -19,6 +19,7 @@ import TyreAgeCalculator from "../src/pages/user/TyreAgeCalculator";
 import PlaceOrder from "./pages/order/PlaceOrder";
 import ViewOrder from "./pages/admin/admin_dashboard/viewOrder";
 import UserLog from "./pages/admin/userlog/UserLog";
+import Payment from "./pages/Payment";
 
 const AppRoutes = () => {
   usePreventBackToLogin();
@@ -29,6 +30,7 @@ const AppRoutes = () => {
       <ToastContainer />
       <Routes>
         <Route path="/placeorder" element={<PlaceOrder />} />
+               <Route path="/payment " element={<Payment />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

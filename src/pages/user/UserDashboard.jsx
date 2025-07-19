@@ -710,7 +710,7 @@ const Profile = () => {
                   )}
                 </div>
 
-                {/* Pagination */}
+                {/* Pagination
                 <nav className="mt-8 flex justify-center">
                   <div className="flex items-center space-x-2 bg-white/70 backdrop-blur-sm rounded-xl p-2 shadow-lg">
                     <button
@@ -776,7 +776,7 @@ const Profile = () => {
                       Last
                     </button>
                   </div>
-                </nav>
+                </nav> */}
               </div>
             </div>
           )}

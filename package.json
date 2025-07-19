@@ -13,6 +13,8 @@
     "@react-three/drei": "^9.108.4",
     "@react-three/fiber": "^8.16.8",
     "@rive-app/react-canvas": "^4.10.0",
+    "@stripe/react-stripe-js": "^3.7.0",
+    "@stripe/stripe-js": "^7.5.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -41,7 +43,7 @@
     "xss": "^1.0.15"
   },
   "scripts": {
-"start": "set HTTPS=true&&set SSL_CRT_FILE=./certs/localhost.pem&&set SSL_KEY_FILE=./certs/localhost-key.pem&&react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=./certs/localhost.pem&&set SSL_KEY_FILE=./certs/localhost-key.pem&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject"
