@@ -26,7 +26,7 @@ const AppRoutes = () => {
 
   return (
     <>
-    {/* das */}
+
       <Navbar />
       <ToastContainer />
       <Routes>
