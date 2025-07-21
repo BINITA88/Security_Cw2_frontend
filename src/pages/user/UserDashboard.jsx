@@ -402,7 +402,6 @@ import toptierImage from "../../asset/imgg/ca1.png";
 import logImage from "../../asset/imgg/canada.png";
 import ProductCard from "../../components/ProductCard";
 import Cart from "./Cart";
-import TyreAgeCalculator from "./TyreAgeCalculator";
 import EditProfile from "./EditProfile";
 
 import { 
@@ -802,18 +801,11 @@ const Profile = () => {
             </div>
           )}
           
-          {activeTab === "calculator" && (
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200">
-              <TyreAgeCalculator />
-            </div>
-          )}
+   
           
           {activeTab === "profile" && (
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200">
-              <h2 className="text-2xl font-bold text-amber-900 mb-6 flex items-center">
-                <User className="mr-2 h-6 w-6 text-amber-600" />
-                My Profile
-              </h2>
+            <div className=" p-6 ">
+            
               <EditProfile />
             </div>
           )}

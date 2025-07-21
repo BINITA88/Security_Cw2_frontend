@@ -301,125 +301,262 @@ const Login = () => {
       });
   };
 
-  return (
-    <div className="login-container">
-      <Toaster />
-      <div className="login-box">
-        <div className="login-form">
-          <h2 className="login-title">Login</h2>
-          <p className="login-subtitle">Please Login to Continue</p>
+  // return (
+  //   <div className="login-container">
+  //     <Toaster />
+  //     <div className="login-box">
+  //       <div className="login-form">
+  //         <h2 className="login-title">Login</h2>
+  //         <p className="login-subtitle">Please Login to Continue</p>
 
-          <form onSubmit={handleLogin} className="login-fields">
-            <div className="input-group">
-              <input
-                className="login-input"
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {emailError && <p className="login-error">{emailError}</p>}
-            </div>
-            <div className="input-group">
-              <input
-                className="login-input"
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {passwordError && <p className="login-error">{passwordError}</p>}
-            </div>
+  //         <form onSubmit={handleLogin} className="login-fields">
+  //           <div className="input-group">
+  //             <input
+  //               className="login-input"
+  //               type="text"
+  //               name="email"
+  //               placeholder="Email"
+  //               value={email}
+  //               onChange={(e) => setEmail(e.target.value)}
+  //             />
+  //             {emailError && <p className="login-error">{emailError}</p>}
+  //           </div>
+  //           <div className="input-group">
+  //             <input
+  //               className="login-input"
+  //               type="password"
+  //               name="password"
+  //               placeholder="Password"
+  //               value={password}
+  //               onChange={(e) => setPassword(e.target.value)}
+  //             />
+  //             {passwordError && <p className="login-error">{passwordError}</p>}
+  //           </div>
 
-            <div className="flex justify-center mb-4">
-              <ReCAPTCHA
-                sitekey="6LeEPLwqAAAAADqgg1ftjO4z6r14-GavrPGQLpwT"
-                onChange={setCaptchaToken}
-                theme="light"
-              />
-            </div>
+  //           <div className="flex justify-center mb-4">
+  //             <ReCAPTCHA
+  //               sitekey="6LeEPLwqAAAAADqgg1ftjO4z6r14-GavrPGQLpwT"
+  //               onChange={setCaptchaToken}
+  //               theme="light"
+  //             />
+  //           </div>
 
-            <button type="submit" className="login-button">
-              Login
+  //           <button type="submit" className="login-button">
+  //             Login
+  //           </button>
+  //         </form>
+
+         
+  //         <div className="register-link">
+  //           <p>
+  //             Don't have an account?{" "}
+  //             <Link to="/register" className="text-blue-600 hover:underline">
+  //               Register
+  //             </Link>
+  //           </p>
+  //         </div>
+
+  //         <div className="forgot-password-link">
+  //           <p>
+  //             <button
+  //               onClick={handleForgotPassword}
+  //               className="text-blue-600 hover:underline"
+  //             >
+  //               Forgot Password?
+  //             </button>
+  //           </p>
+  //         </div>
+  //       </div>
+
+  //       <div className="login-image">
+  //         <img src={blog2} alt="Login" />
+  //       </div>
+  //     </div>
+
+  //     {/* OTP Modal */}
+  //     {showOtpModal && (
+  //       <div className="otp-modal">
+  //         <div className="otp-modal-content">
+  //           <h3>Enter OTP</h3>
+  //           <input
+  //             type="text"
+  //             placeholder="Enter OTP"
+  //             value={otp}
+  //             onChange={(e) => setOtp(e.target.value)}
+  //             className="otp-input"
+  //           />
+  //           <div className="otp-modal-buttons">
+  //             <button onClick={handleVerifyOtp} className="otp-verify-button">
+  //               Verify OTP
+  //             </button>
+  //             <button
+  //               onClick={() => setShowOtpModal(false)}
+  //               className="otp-cancel-button"
+  //             >
+  //               Cancel
+  //             </button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     )}
+
+  //     {/* Forgot Password Modal */}
+  //     {showForgotPasswordModal && (
+  //       <div className="otp-modal">
+  //         <div className="otp-modal-content">
+  //           <h3>Forgot Password</h3>
+  //           <input
+  //             type="text"
+  //             placeholder="Enter Phone Number"
+  //             value={phoneNumber}
+  //             onChange={(e) => setPhoneNumber(e.target.value)}
+  //             className="otp-input"
+  //           />
+  //           <div className="otp-modal-buttons">
+  //             <button onClick={handleSendOtp} className="otp-verify-button">
+  //               Send OTP
+  //             </button>
+  //             <button
+  //               onClick={() => setShowForgotPasswordModal(false)}
+  //               className="otp-cancel-button"
+  //             >
+  //               Cancel
+  //             </button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     )}
+
+  //     {/* Reset Password Modal */}
+  //     {showResetPasswordModal && (
+  //       <div className="otp-modal">
+  //         <div className="otp-modal-content">
+  //           <h3>Reset Password</h3>
+  //           <input
+  //             type="text"
+  //             placeholder="Enter OTP"
+  //             value={resetPasswordOtp}
+  //             onChange={(e) => setResetPasswordOtp(e.target.value)}
+  //             className="otp-input"
+  //           />
+  //           <input
+  //             type="password"
+  //             placeholder="Enter New Password"
+  //             value={newPassword}
+  //             onChange={(e) => setNewPassword(e.target.value)}
+  //             className="otp-input"
+  //           />
+  //           <div className="otp-modal-buttons">
+  //             <button
+  //               onClick={handleResetPassword}
+  //               className="otp-verify-button"
+  //             >
+  //               Reset Password
+  //             </button>
+  //             <button
+  //               onClick={() => setShowResetPasswordModal(false)}
+  //               className="otp-cancel-button"
+  //             >
+  //               Cancel
+  //             </button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     )}
+  //   </div>
+  // );
+return (
+  <div className="min-h-screen flex items-center justify-center bg-[#fffaf5] text-[#5a3210]">
+    <Toaster />
+    <div className="bg-white shadow-md rounded-xl p-8 w-full max-w-4xl flex flex-col md:flex-row gap-8">
+      {/* Left: Form */}
+      <div className="flex-1">
+        <h2 className="text-3xl font-bold mb-2">Login</h2>
+        <p className="text-sm text-gray-500 mb-6">Please login to continue</p>
+
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 border border-[#d3b79c] rounded-md"
+            />
+            {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+          </div>
+
+          <div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 border border-[#d3b79c] rounded-md"
+            />
+            {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
+          </div>
+
+          <div className="flex justify-center">
+            <ReCAPTCHA
+              sitekey="6LeEPLwqAAAAADqgg1ftjO4z6r14-GavrPGQLpwT"
+              onChange={setCaptchaToken}
+              theme="light"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-[#cf5c14] hover:bg-[#b74f10] text-white font-semibold py-3 rounded-md shadow"
+          >
+            Login
+          </button>
+        </form>
+
+        <div className="mt-4 text-sm">
+          <p>
+            Don’t have an account?{' '}
+            <Link to="/register" className="text-blue-600 hover:underline">Register</Link>
+          </p>
+          <p className="mt-2">
+            <button
+              onClick={handleForgotPassword}
+              className="text-blue-600 hover:underline"
+            >
+              Forgot Password?
             </button>
-          </form>
-
-          <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              const token = credentialResponse.credential;
-              const details = jwtDecode(token);
-              setGoogleId(details.sub);
-              setGoogleToken(token);
-
-              getUserByGoogleEmail({ token })
-                .then((response) => {
-                  if (response.status === 200) {
-                    handleGoogleLogin({ token });
-                  } else if (response.status === 201) {
-                    setShowModal(true);
-                  }
-                })
-                .catch((error) => {
-                  if (error.response && error.response.status === 400) {
-                    toast.warning(error.response.data.message);
-                  } else {
-                    toast.error("Error: Something went wrong");
-                  }
-                });
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
-
-          <div className="register-link">
-            <p>
-              Don't have an account?{" "}
-              <Link to="/register" className="text-blue-600 hover:underline">
-                Register
-              </Link>
-            </p>
-          </div>
-
-          <div className="forgot-password-link">
-            <p>
-              <button
-                onClick={handleForgotPassword}
-                className="text-blue-600 hover:underline"
-              >
-                Forgot Password?
-              </button>
-            </p>
-          </div>
+          </p>
         </div>
+      </div>
 
-        <div className="login-image">
-          <img src={blog2} alt="Login" />
-        </div>
+      {/* Right: Image */}
+      <div className="hidden md:block flex-1">
+        <img
+          src={blog2}
+          alt="Login"
+          className="rounded-lg w-full h-full object-cover"
+        />
       </div>
 
       {/* OTP Modal */}
       {showOtpModal && (
-        <div className="otp-modal">
-          <div className="otp-modal-content">
-            <h3>Enter OTP</h3>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+            <h3 className="text-lg font-semibold mb-4">Enter OTP</h3>
             <input
               type="text"
               placeholder="Enter OTP"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              className="otp-input"
+              className="w-full p-2 border border-[#d3b79c] rounded-md mb-4"
             />
-            <div className="otp-modal-buttons">
-              <button onClick={handleVerifyOtp} className="otp-verify-button">
+            <div className="flex justify-between">
+              <button onClick={handleVerifyOtp} className="bg-[#cf5c14] text-white px-4 py-2 rounded-md">
                 Verify OTP
               </button>
-              <button
-                onClick={() => setShowOtpModal(false)}
-                className="otp-cancel-button"
-              >
+              <button onClick={() => setShowOtpModal(false)} className="text-gray-500">
                 Cancel
               </button>
             </div>
@@ -429,24 +566,21 @@ const Login = () => {
 
       {/* Forgot Password Modal */}
       {showForgotPasswordModal && (
-        <div className="otp-modal">
-          <div className="otp-modal-content">
-            <h3>Forgot Password</h3>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+            <h3 className="text-lg font-semibold mb-4">Forgot Password</h3>
             <input
               type="text"
               placeholder="Enter Phone Number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              className="otp-input"
+              className="w-full p-2 border border-[#d3b79c] rounded-md mb-4"
             />
-            <div className="otp-modal-buttons">
-              <button onClick={handleSendOtp} className="otp-verify-button">
+            <div className="flex justify-between">
+              <button onClick={handleSendOtp} className="bg-[#cf5c14] text-white px-4 py-2 rounded-md">
                 Send OTP
               </button>
-              <button
-                onClick={() => setShowForgotPasswordModal(false)}
-                className="otp-cancel-button"
-              >
+              <button onClick={() => setShowForgotPasswordModal(false)} className="text-gray-500">
                 Cancel
               </button>
             </div>
@@ -456,34 +590,28 @@ const Login = () => {
 
       {/* Reset Password Modal */}
       {showResetPasswordModal && (
-        <div className="otp-modal">
-          <div className="otp-modal-content">
-            <h3>Reset Password</h3>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+            <h3 className="text-lg font-semibold mb-4">Reset Password</h3>
             <input
               type="text"
               placeholder="Enter OTP"
               value={resetPasswordOtp}
               onChange={(e) => setResetPasswordOtp(e.target.value)}
-              className="otp-input"
+              className="w-full p-2 border border-[#d3b79c] rounded-md mb-4"
             />
             <input
               type="password"
               placeholder="Enter New Password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="otp-input"
+              className="w-full p-2 border border-[#d3b79c] rounded-md mb-4"
             />
-            <div className="otp-modal-buttons">
-              <button
-                onClick={handleResetPassword}
-                className="otp-verify-button"
-              >
+            <div className="flex justify-between">
+              <button onClick={handleResetPassword} className="bg-[#cf5c14] text-white px-4 py-2 rounded-md">
                 Reset Password
               </button>
-              <button
-                onClick={() => setShowResetPasswordModal(false)}
-                className="otp-cancel-button"
-              >
+              <button onClick={() => setShowResetPasswordModal(false)} className="text-gray-500">
                 Cancel
               </button>
             </div>
@@ -491,7 +619,9 @@ const Login = () => {
         </div>
       )}
     </div>
-  );
+  </div>
+);
+
 };
 
 export default Login;

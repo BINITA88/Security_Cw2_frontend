@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import HomePage from "./pages/homepage/Homepage";
-import AboutPage from "./pages/about/About";
 import Navbar from "./components/Navbar";
 import AdminDashboard from "./pages/admin/admin_dashboard/AdminDashboard";
 import UpdateProduct from "./pages/admin/updateProduct/updateProduct";
@@ -15,7 +14,6 @@ import Profile from "./pages/user/UserDashboard";
 import ProductDetails from "./pages/product_details/ProductDetails";
 import { CartProvider } from "./context/CartContext";
 import usePreventBackToLogin from "./hooks/PreventBackToLogin";
-import TyreAgeCalculator from "../src/pages/user/TyreAgeCalculator";
 import PlaceOrder from "./pages/order/PlaceOrder";
 import ViewOrder from "./pages/admin/admin_dashboard/viewOrder";
 import UserLog from "./pages/admin/userlog/UserLog";
@@ -35,7 +33,6 @@ const AppRoutes = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/about" element={<AboutPage />} />
         <Route element={<AdminRoutes />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/update/:id" element={<UpdateProduct />} />
@@ -44,12 +41,8 @@ const AppRoutes = () => {
         <Route element={<UserRoutes />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/product/:id" element={<ProductDetails />} />
-          <Route
-            path="/tyre-age-calculator"
-            element={<TyreAgeCalculator />}
-          />{" "}
-          {/* Add this line */}
-        </Route>
+          
+d        </Route>
       </Routes>
     </>
   );

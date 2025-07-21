@@ -184,149 +184,294 @@ function Register() {
       });
   };
 
-  return (
-    <div className="register-container">
-      <Toaster />
-      <div className="register-box">
-        <div className="register-form">
-<h2 className="register-title ">Register Now</h2>
+//   return (
+//     <div className="register-container">
+//       <Toaster />
+//       <div className="register-box">
+//         <div className="register-form">
+// <h2 className="register-title ">Register Now</h2>
           
 
-          <form onSubmit={handleSubmit} className="register-fields">
-            <div className="input-container">
-              <input
-                className="register-input"
-                type="text"
-                name="firstname"
-                placeholder="First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-              {firstNameError && (
-                <p className="error-message">{firstNameError}</p>
-              )}
-            </div>
-            <div className="input-container">
-              <input
-                className="register-input"
-                type="text"
-                name="lastname"
-                placeholder="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-              {lastNameError && (
-                <p className="error-message">{lastNameError}</p>
-              )}
-            </div>
-            <div className="input-container">
-              <input
-                className="register-input"
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={userName}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              {usernameError && (
-                <p className="error-message">{usernameError}</p>
-              )}
-            </div>
-            <div className="input-container">
-              <input
-                className="register-input"
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {emailError && <p className="error-message">{emailError}</p>}
-            </div>
-            <div className="input-container">
-              <input
-                className="register-input"
-                type="phone"
-                name="phone"
-                placeholder="Phone Number"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-              />
-              {phoneNumberError && (
-                <p className="error-message">{phoneNumberError}</p>
-              )}
-            </div>
-            <div className="input-container">
-              <input
-                className="register-input"
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {passwordError && (
-                <p className="error-message">{passwordError}</p>
-              )}
-            </div>
-            <div className="input-container">
-              <input
-                className="register-input"
-                type="password"
-                name="confirm-password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              {confirmPasswordError && (
-                <p className="error-message">{confirmPasswordError}</p>
-              )}
-            </div>
-            <button type="submit" className="register-button">
-              Register
-            </button>
-          </form>
+//           <form onSubmit={handleSubmit} className="register-fields">
+//             <div className="input-container">
+//               <input
+//                 className="register-input"
+//                 type="text"
+//                 name="firstname"
+//                 placeholder="First Name"
+//                 value={firstName}
+//                 onChange={(e) => setFirstName(e.target.value)}
+//               />
+//               {firstNameError && (
+//                 <p className="error-message">{firstNameError}</p>
+//               )}
+//             </div>
+//             <div className="input-container">
+//               <input
+//                 className="register-input"
+//                 type="text"
+//                 name="lastname"
+//                 placeholder="Last Name"
+//                 value={lastName}
+//                 onChange={(e) => setLastName(e.target.value)}
+//               />
+//               {lastNameError && (
+//                 <p className="error-message">{lastNameError}</p>
+//               )}
+//             </div>
+//             <div className="input-container">
+//               <input
+//                 className="register-input"
+//                 type="text"
+//                 name="username"
+//                 placeholder="Username"
+//                 value={userName}
+//                 onChange={(e) => setUsername(e.target.value)}
+//               />
+//               {usernameError && (
+//                 <p className="error-message">{usernameError}</p>
+//               )}
+//             </div>
+//             <div className="input-container">
+//               <input
+//                 className="register-input"
+//                 type="email"
+//                 name="email"
+//                 placeholder="Email"
+//                 value={email}
+//                 onChange={(e) => setEmail(e.target.value)}
+//               />
+//               {emailError && <p className="error-message">{emailError}</p>}
+//             </div>
+//             <div className="input-container">
+//               <input
+//                 className="register-input"
+//                 type="phone"
+//                 name="phone"
+//                 placeholder="Phone Number"
+//                 value={phoneNumber}
+//                 onChange={(e) => setPhoneNumber(e.target.value)}
+//               />
+//               {phoneNumberError && (
+//                 <p className="error-message">{phoneNumberError}</p>
+//               )}
+//             </div>
+//             <div className="input-container">
+//               <input
+//                 className="register-input"
+//                 type="password"
+//                 name="password"
+//                 placeholder="Password"
+//                 value={password}
+//                 onChange={(e) => setPassword(e.target.value)}
+//               />
+//               {passwordError && (
+//                 <p className="error-message">{passwordError}</p>
+//               )}
+//             </div>
+//             <div className="input-container">
+//               <input
+//                 className="register-input"
+//                 type="password"
+//                 name="confirm-password"
+//                 placeholder="Confirm Password"
+//                 value={confirmPassword}
+//                 onChange={(e) => setConfirmPassword(e.target.value)}
+//               />
+//               {confirmPasswordError && (
+//                 <p className="error-message">{confirmPasswordError}</p>
+//               )}
+//             </div>
+//             <button type="submit" className="register-button">
+//               Register
+//             </button>
+//           </form>
 
-          <div className="login-link">
-            <p>
-              Already have an account?{" "}
-              <Link to="/login" className="text-blue-600 hover:underline">
-                Login
-              </Link>
-            </p>
+//           <div className="login-link">
+//             <p>
+//               Already have an account?{" "}
+//               <Link to="/login" className="text-blue-600 hover:underline">
+//                 Login
+//               </Link>
+//             </p>
+//           </div>
+//         </div>
+
+//         <div className="register-image">
+//           <img src={contactus} alt="Register" />
+//         </div>
+//       </div>
+//       {/* OTP Modal */}
+//       {isOtpModalOpen && (
+//         <div className="otp-modal">
+//           <div className="otp-modal-content">
+//             <h3>Verify Your OTP</h3>
+//             <input
+//               type="text"
+//               placeholder="Enter OTP"
+//               value={otp}
+//               onChange={(e) => setOtp(e.target.value)}
+//               className="register-input"
+//             />
+//             <button onClick={handleOtpVerification} className="register-button">
+//               Verify OTP
+//             </button>
+//             <button
+//               onClick={() => setIsOtpModalOpen(false)}
+//               className="register-button cancel-button"
+//             >
+//               Cancel
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+return (
+  <div className="min-h-screen flex items-center justify-center bg-[#fffaf5] text-[#5a3210]">
+    <Toaster />
+    <div className="bg-white shadow-md rounded-xl p-8 w-full max-w-5xl flex flex-col md:flex-row gap-8">
+      {/* Left: Form */}
+      <div className="flex-1">
+        <h2 className="text-3xl font-bold mb-2">Register Now</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              type="text"
+              name="firstname"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full p-3 border border-[#d3b79c] rounded-md"
+            />
+            {firstNameError && <p className="text-red-500 text-sm mt-1">{firstNameError}</p>}
           </div>
-        </div>
 
-        <div className="register-image">
-          <img src={contactus} alt="Register" />
+          <div>
+            <input
+              type="text"
+              name="lastname"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="w-full p-3 border border-[#d3b79c] rounded-md"
+            />
+            {lastNameError && <p className="text-red-500 text-sm mt-1">{lastNameError}</p>}
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={userName}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full p-3 border border-[#d3b79c] rounded-md"
+            />
+            {usernameError && <p className="text-red-500 text-sm mt-1">{usernameError}</p>}
+          </div>
+
+          <div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 border border-[#d3b79c] rounded-md"
+            />
+            {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className="w-full p-3 border border-[#d3b79c] rounded-md"
+            />
+            {phoneNumberError && <p className="text-red-500 text-sm mt-1">{phoneNumberError}</p>}
+          </div>
+
+          <div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 border border-[#d3b79c] rounded-md"
+            />
+            {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
+          </div>
+
+          <div>
+            <input
+              type="password"
+              name="confirm-password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full p-3 border border-[#d3b79c] rounded-md"
+            />
+            {confirmPasswordError && <p className="text-red-500 text-sm mt-1">{confirmPasswordError}</p>}
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-[#cf5c14] hover:bg-[#b74f10] text-white font-semibold py-3 rounded-md shadow"
+          >
+            Register
+          </button>
+        </form>
+
+        <div className="mt-4 text-sm">
+          <p>
+            Already have an account?{' '}
+            <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
+          </p>
         </div>
       </div>
+
+      {/* Right: Image */}
+      <div className="hidden md:block flex-1">
+        <img
+          src={contactus}
+          alt="Register"
+          className="rounded-lg w-full h-full object-cover"
+        />
+      </div>
+
       {/* OTP Modal */}
       {isOtpModalOpen && (
-        <div className="otp-modal">
-          <div className="otp-modal-content">
-            <h3>Verify Your OTP</h3>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+            <h3 className="text-lg font-semibold mb-4">Verify Your OTP</h3>
             <input
               type="text"
               placeholder="Enter OTP"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              className="register-input"
+              className="w-full p-3 border border-[#d3b79c] rounded-md mb-4"
             />
-            <button onClick={handleOtpVerification} className="register-button">
-              Verify OTP
-            </button>
-            <button
-              onClick={() => setIsOtpModalOpen(false)}
-              className="register-button cancel-button"
-            >
-              Cancel
-            </button>
+            <div className="flex justify-between">
+              <button onClick={handleOtpVerification} className="bg-[#cf5c14] text-white px-4 py-2 rounded-md">
+                Verify OTP
+              </button>
+              <button onClick={() => setIsOtpModalOpen(false)} className="text-gray-500">
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
     </div>
-  );
+  </div>
+);
+
 }
 
 export default Register;

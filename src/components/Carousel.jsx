@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import cover from '../../src/asset/imgg/Australia.png';
 import cover1 from '../../src/asset/imgg/ca1.png';
 import cover2 from '../../src/asset/imgg/canada.png';
@@ -11,8 +11,8 @@ const Carousel = () => {
 
   const images = [cover, cover1, cover2, cover3];
   const text = [
-     'Where Every Post Tells a Story',
-     '',
+    'Where Every Post Tells a Story',
+    '',
     'Discover amazing stories, share your thoughts, and connect with writers from around the world. Join our community of passionate storytellers today.'
   ];
 
@@ -52,28 +52,25 @@ const Carousel = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row justify-between   h-autop-8">
+    <div className="flex flex-col lg:flex-row justify-between py-10 px-4 h-auto">
       {/* Left Section with Text */}
-      <div className="flex flex-col items-start w-full lg:w-1/2 pr-8 space-y-6 lg:ml-16 lg:mt-14">
+      <div className="flex flex-col items-start w-full lg:w-1/2 pr-8 space-y-6  lg:ml-16 lg:mt-14">
         <h2 className="text-4xl lg:text-5xl font-bold text-blue-900 transition-transform transform hover:scale-105">{text[0]}</h2>
         <h3 className="text-3xl lg:text-4xl font-semibold text-orange-500">{text[1]}</h3>
         <p className="text-lg font-medium text-gray-700 h-24 overflow-hidden transition-all ease-in-out duration-500">
           {displayedText}
         </p>
 
-        {/* Buttons */}
-        <div className="flex space-x-4">
-          <Link to="/apply">
- <button
-  style={{ backgroundColor: '#159A9C' }}
-  className="text-white  p-4 px-6 py-3 rounded-md hover:bg-orange-600 transition duration-300 transform hover:scale-105"
->
-Explore More</button>
+       <div className="flex space-x-4">
+  <Link to="/apply">
+    <button
+      className="bg-[#4a1f0d] hover:bg-[#159A9C] text-white px-6 py-3 rounded-md transition duration-300 transform hover:scale-105 font-semibold"
+    >
+      Explore More
+    </button>
+  </Link>
+</div>
 
-          </Link>
-         
-  
-        </div>
       </div>
 
       {/* Carousel Section */}

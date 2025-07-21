@@ -1,69 +1,37 @@
-import { Link } from "react-router-dom";
-
-import logo from "../../src/asset/imgg/logo.png";
-
+import { BookOpen, Heart, Coffee } from "lucide-react";
 
 const Footer = () => {
   return (
-    <>
-      {/* Contact Form Section Above Footer */}
-      {/* <ContactForm/> */}
+    <footer className="bg-[#4a1f0d] text-white py-10 border-t border-[#e2d2b0]">
+      <div className="max-w-7xl mx-auto px-6 text-center space-y-4">
+        <div className="flex justify-center items-center gap-3">
+          <span className="text-2xl font-bold tracking-wide">Bookish</span>
+        </div>
 
-      {/* Main Footer */}
-      <footer className="bg-[#269092] text-white">
-        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <p className="text-white text-sm italic">
+          Where stories come alive and knowledge finds its home
+        </p>
 
-          {/* Logo and Slogan */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <img src={logo} alt="Logo" className="h-28 w-auto rounded" />
-            </div>
-            <p className="text-sm leading-relaxed">
-              Where every post tells a story. Share your thoughts, connect with readers, and inspire the world.
-            </p>
+        <div className="flex justify-center flex-wrap gap-6 text-white] text-sm mt-2">
+          <div className="flex items-center gap-2">
+            <Heart className="h-4 w-4" />
+            <span>Curated with love</span>
           </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-semibold text-lg mb-3">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="hover:underline">Home</Link></li>
-              <li><Link to="/postt" className="hover:underline">Explore Blogs</Link></li>
-              <li><Link to="/messenger" className="hover:underline">Messages</Link></li>
-              <li><Link to="/network" className="hover:underline">My Network</Link></li>
-              <li><Link to="/notifications" className="hover:underline">Notifications</Link></li>
-            </ul>
+          <div className="flex items-center gap-2">
+            <Coffee className="h-4 w-4" />
+            <span>Perfect reading atmosphere</span>
           </div>
-
-          {/* Categories */}
-          <div>
-            <h3 className="font-semibold text-lg mb-3">Categories</h3>
-            <ul className="space-y-2 text-sm">
-              <li>Inspiration & Motivation</li>
-              <li>Entertainment</li>
-              <li>Parenting</li>
-              <li>Fashion & Beauty</li>
-              <li>Books & Literature</li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-semibold text-lg mb-3">Contact Us</h3>
-            <ul className="space-y-2 text-sm">
-              <li><span className="font-medium">Address:</span> BlogSpace Pvt. Ltd., Kathmandu, Nepal</li>
-              <li><span className="font-medium">Phone:</span> +977-9876543210</li>
-              <li><span className="font-medium">Email:</span> support@blogspace.com</li>
-            </ul>
+          <div className="flex items-center gap-2">
+            <BookOpen className="h-4 w-4" />
+            <span>Read anywhere, anytime</span>
           </div>
         </div>
 
-        {/* Bottom Copyright */}
-        <div className="border-t border-white/30 py-4 text-center text-xs text-white">
-          &copy; {new Date().getFullYear()} BlogSpace. All rights reserved.
-        </div>
-      </footer>
-    </>
+        <p className="text-xs text-white mt-6">
+          &copy; {new Date().getFullYear()} Bookish. All rights reserved.
+        </p>
+      </div>
+    </footer>
   );
 };
 
