@@ -36,7 +36,7 @@ const Navbar = () => {
               Bookish
             </a>
           </div>
-          {/* asa */}
+
 
           <div className="hidden md:flex items-center gap-6">
             <button
