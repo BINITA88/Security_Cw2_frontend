@@ -10,6 +10,32 @@
   background: #f7f9fc;
   padding: 80px 80px;
 }
+@keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes leave {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+.animate-enter {
+  animation: enter 0.3s ease-out;
+}
+.animate-leave {
+  animation: leave 0.3s ease-in forwards;
+}
 
 /* Login box layout */
 .login-box {

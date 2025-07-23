@@ -400,7 +400,7 @@ import { getProductCount, pagination, searchProductsApi } from "../../apis/Api";
 import bestpriceImage from "../../asset/imgg/ca2.png";
 import toptierImage from "../../asset/imgg/ca1.png";
 import logImage from "../../asset/imgg/canada.png";
-import ProductCard from "../../components/ProductCard";
+import ProductCard from "../../bookishComponents/ProductCard";
 import Cart from "./Cart";
 import EditProfile from "./EditProfile";
 

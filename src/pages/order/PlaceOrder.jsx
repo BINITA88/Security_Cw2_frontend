@@ -30,17 +30,15 @@ const PlaceOrder = () => {
     deliveryFee: 40.0,
   });
 
-  // Fetch the current user's details
-  const fetchCurrentUser = async () => {
+
+  const fetchBookishUser = async () => {
     try {
       const response = await getCurrentUserApi();
       if (response.data.success) {
         setUser(response.data.user);
-        // Auto-fill form fields if user data exists
         setFormData((prev) => ({
           ...prev,
-          firstName: DOMPurify.sanitize(response.data.user.firstName || ""),
-          lastName: DOMPurify.sanitize(response.data.user.lastName || ""),
+          userName: DOMPurify.sanitize(response.data.user.userName || ""),
           email: DOMPurify.sanitize(response.data.user.email || ""),
           street: DOMPurify.sanitize(response.data.user.street || ""),
           city: DOMPurify.sanitize(response.data.user.city || ""),
@@ -51,7 +49,7 @@ const PlaceOrder = () => {
         }));
       }
     } catch (error) {
-      console.error("Error fetching user details:", error);
+      console.error("You got error while fetching user details:", error);
       toast.error("Failed to fetch user details.");
     }
   };
@@ -74,7 +72,7 @@ const PlaceOrder = () => {
   };
 
   useEffect(() => {
-    fetchCurrentUser(); // Fetch user details on component mount
+    fetchBookishUser(); // Fetch user details on component mount
     fetchCart(); // Fetch cart details on component mount
   }, []);
 

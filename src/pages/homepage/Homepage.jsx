@@ -4,8 +4,8 @@ import banner2 from "../../assets/images/banner2.png";
 import banner3 from "../../assets/images/banner3.png";
 import banner4 from "../../assets/images/banner4.png";
 import banner5 from "../../assets/images/banner5.png";
-import Carousel from "../../components/Carousel";
-import Footer from "../../components/Footer";
+import Carousel from "../../bookishComponents/Carousel";
+import Footer from "../../bookishComponents/Footer";
 
 const Counter = ({ className, start, end, delay }) => {
   const [count, setCount] = useState(start);

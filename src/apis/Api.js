@@ -203,21 +203,17 @@ export const deleteUserApi = (userId) =>
 
 const fetchCsrfToken = async () => {
   try {
-    const response = await axios.get("https://localhost:5000/api/csrf-token", {
-      withCredentials: true, // Include cookies
+    const response = await axios.get("https://localhost:5000/api/Bookish-Csrf", {
+      withCredentials: true, 
     });
-    return response.data.csrfToken; // Return the CSRF token
+    return response.data.csrfToken;
   } catch (error) {
     console.error("Error fetching CSRF token:", error);
     return null;
   }
 };
-
-// Store the CSRF token in a variable or state
 let csrfToken = null;
-
-// Fetch and store the CSRF token when the app loads
 fetchCsrfToken().then((token) => {
   csrfToken = token;
-  console.log("CSRF Token:", csrfToken);
+  console.log("Bookish-Csrf:", csrfToken);
 });

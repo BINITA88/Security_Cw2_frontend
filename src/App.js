@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import HomePage from "./pages/homepage/Homepage";
-import Navbar from "./components/Navbar";
+import Navbar from "./bookishComponents/Navbar";
 import AdminDashboard from "./pages/admin/admin_dashboard/AdminDashboard";
 import UpdateProduct from "./pages/admin/updateProduct/updateProduct";
 import AdminRoutes from "./protected_routes/AdmiRoutes";
@@ -42,7 +42,7 @@ const AppRoutes = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           
-d        </Route>
+       </Route>
       </Routes>
     </>
   );

@@ -18,7 +18,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 import validator from "validator";
 
 const Login = () => {
-  // State for login form
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -29,31 +28,47 @@ const Login = () => {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otp, setOtp] = useState("");
   const [userId, setUserId] = useState("");
-  const [showModal, setShowModal] = useState(false);
-
-  // State for forgot password
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [resetPasswordOtp, setResetPasswordOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
-
-  // State for tracking failed attempts
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [isBlocked, setIsBlocked] = useState(false);
+
+  const showBlockToast = () => {
+    toast.custom((t) => (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } max-w-md w-full bg-[#cf5c14] text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 p-4`}
+      >
+        <div className="flex-1 w-0">
+          <p className="text-sm font-medium">Too Many Failed Attempts</p>
+          <p className="mt-1 text-sm">You are blocked for 10 minutes.</p>
+        </div>
+        <div className="ml-4 flex-shrink-0 flex">
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="text-white font-bold hover:text-gray-100"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    ));
+  };
+
   const checkTokenExpiry = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
       const currentTime = Date.now() / 1000;
-
       if (decoded.exp < currentTime) {
-        // Token expired, log out the user
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         window.location.href = "/login";
       } else {
-        // Refresh token 5 minutes before expiry
         const timeUntilExpiry = (decoded.exp - currentTime) * 1000;
         if (timeUntilExpiry < 5 * 60 * 1000) {
           refreshToken();
@@ -61,6 +76,7 @@ const Login = () => {
       }
     }
   };
+
   const refreshToken = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
@@ -81,30 +97,25 @@ const Login = () => {
     }
   };
 
-  // Effect to block user for 15 minutes
   useEffect(() => {
     if (failedAttempts >= 3) {
       setIsBlocked(true);
-      toast.error(
-        "You are blocked for 15 minutes due to too many failed attempts."
-      );
+      showBlockToast();
       const timer = setTimeout(() => {
         setIsBlocked(false);
         setFailedAttempts(0);
-      }, 15 * 60 * 1000); // 15 minutes
+      }, 10 * 60 * 1000); 
       return () => clearTimeout(timer);
     }
   }, [failedAttempts]);
+
   useEffect(() => {
     const interval = setInterval(checkTokenExpiry, 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // Validate login form
   const validateForm = () => {
     let isValid = true;
-
-    // Sanitize and validate email
     const sanitizedEmail = validator.normalizeEmail(email.trim());
     if (!sanitizedEmail || !validator.isEmail(sanitizedEmail)) {
       setEmailError("Invalid email address");
@@ -113,7 +124,6 @@ const Login = () => {
       setEmailError("");
     }
 
-    // Sanitize and validate password
     const sanitizedPassword = password.trim();
     if (!sanitizedPassword) {
       setPasswordError("Password is required");
@@ -128,14 +138,11 @@ const Login = () => {
     return isValid;
   };
 
-  // Handle login
   const handleLogin = (e) => {
     e.preventDefault();
 
     if (isBlocked) {
-      toast.error(
-        "You are blocked for 15 minutes due to too many failed attempts."
-      );
+      showBlockToast();
       return;
     }
 
@@ -153,9 +160,7 @@ const Login = () => {
     loginUserApi(data)
       .then((res) => {
         if (res.data.success) {
-          toast.success(
-            "OTP is required. Please enter the OTP sent to your email."
-          );
+          toast.success("OTP is required. Please enter the OTP sent to your email.");
           setUserId(res.data.userId);
           setShowOtpModal(true);
         } else {
@@ -164,13 +169,11 @@ const Login = () => {
       })
       .catch((error) => {
         console.error("Error:", error);
-        toast.error(
-          "You have been block for 15 minutes due to too many attempts."
-        );
+        setFailedAttempts((prev) => prev + 1);
+        showBlockToast();
       });
   };
 
-  // Handle OTP verification
   const handleVerifyOtp = () => {
     const sanitizedOtp = validator.escape(otp.trim());
     if (!sanitizedOtp) {
@@ -202,7 +205,6 @@ const Login = () => {
       });
   };
 
-  // Handle Google login
   const handleGoogleLogin = () => {
     googleLoginApi({ token: googleToken, googleId, password })
       .then((response) => {
@@ -215,23 +217,16 @@ const Login = () => {
           console.error("Failed to send token to backend");
         }
       })
-      .catch((error) =>
-        console.error("Error sending token to backend:", error)
-      );
+      .catch((error) => console.error("Error sending token to backend:", error));
   };
 
-  // Handle Forgot Password
   const handleForgotPassword = () => {
     setShowForgotPasswordModal(true);
   };
 
-  // Handle Send OTP for forgot password
   const handleSendOtp = () => {
     const sanitizedPhoneNumber = validator.escape(phoneNumber.trim());
-    if (
-      !sanitizedPhoneNumber ||
-      !validator.isMobilePhone(sanitizedPhoneNumber, "en-IN")
-    ) {
+    if (!sanitizedPhoneNumber || !validator.isMobilePhone(sanitizedPhoneNumber, "en-IN")) {
       toast.error("Invalid phone number (10 digits required)");
       return;
     }
@@ -252,12 +247,9 @@ const Login = () => {
       });
   };
 
-  // Handle Reset Password
   const handleResetPassword = () => {
     if (isBlocked) {
-      toast.error(
-        "You are blocked for 15 minutes due to too many failed attempts."
-      );
+      showBlockToast();
       return;
     }
 
@@ -283,23 +275,19 @@ const Login = () => {
         if (res.data.success) {
           toast.success("Password reset successfully!");
           setShowResetPasswordModal(false);
-          setFailedAttempts(0); // Reset failed attempts on success
+          setFailedAttempts(0);
         } else {
-          setFailedAttempts(failedAttempts + 1);
-          toast.error(
-            res.data.message ||
-              "You have been blocked for 15 minutes due to too many attempts."
-          );
+          setFailedAttempts((prev) => prev + 1);
+          showBlockToast();
         }
       })
       .catch((error) => {
         console.error("Error resetting password:", error);
-        setFailedAttempts(failedAttempts + 1); // Increment failed attempts
-        toast.error(
-          "You have been blocked for 15 minutes due to too many attempts."
-        );
+        setFailedAttempts((prev) => prev + 1);
+        showBlockToast();
       });
   };
+
 
   // return (
   //   <div className="login-container">

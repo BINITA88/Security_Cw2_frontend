@@ -443,7 +443,7 @@ import {
 } from "../../apis/Api";
 import { useCart } from "../../context/CartContext";
 import { toast } from "react-toastify";
-import ProductCard from "../../components/ProductCard";
+import ProductCard from "../../bookishComponents/ProductCard";
 import { FaShoppingCart, FaDollarSign } from "react-icons/fa";
 import { Star, BookOpen, Search, ShoppingCart, User } from "lucide-react";
 import DOMPurify from "dompurify";
@@ -459,11 +459,6 @@ const ProductDetails = () => {
   const [isOutStock, setIsOutStock] = useState(false);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [rating, setRating] = useState(5);
-  const [review, setReview] = useState("");
-  const [reviews, setReviews] = useState([]);
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [reviewChange, setReviewChange] = useState(false);
-  const [ownReview, setOwnReview] = useState(null);
   const [productsRatings, setProductsRatings] = useState({});
   const [activeTab, setActiveTab] = useState("shopNow");
   const navigate = useNavigate();
@@ -481,17 +476,7 @@ const ProductDetails = () => {
       .catch((err) => setError(err.response?.data?.message));
   }, [id]);
 
-  useEffect(() => {
-    getReviewsApi(id).then((res) => {
-      if (res.status === 200) setReviews(res.data.reviews);
-    });
-  }, [id, reviewChange]);
 
-  useEffect(() => {
-    getReviewsByProductAndUserApi(id).then((res) => {
-      if (res.status === 200) setOwnReview(res.data.review);
-    });
-  }, [id, reviewChange]);
 
   useEffect(() => {
     getAverageRatingApi(id).then((res) => {
@@ -502,7 +487,7 @@ const ProductDetails = () => {
         }));
       }
     });
-  }, [id, reviewChange]);
+  }, [id]);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -529,22 +514,7 @@ const ProductDetails = () => {
     }
   };
 
-  const handleReviewSubmit = async (e) => {
-    e.preventDefault();
-    const sanitizedReview = DOMPurify.sanitize(review);
-    const sanitizedRating = validator.escape(rating.toString());
-    if (!sanitizedRating || !sanitizedReview) return toast.error("Please fill all fields.");
-
-    addReviewApi({ productId: product._id, rating: sanitizedRating, review: sanitizedReview })
-      .then((res) => {
-        if (res.status === 201) {
-          toast.success(res.data.message);
-          setShowReviewForm(false);
-          setReviewChange(!reviewChange);
-        } else throw new Error("Unexpected error");
-      })
-      .catch((err) => toast.error(err?.response?.data?.message || "Error Occurred"));
-  };
+ 
 
   if (error) return <div className="text-red-500">{error}</div>;
   if (!product) return <div>Loading...</div>;
