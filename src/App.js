@@ -18,35 +18,38 @@ import PlaceOrder from "./pages/order/PlaceOrder";
 import ViewOrder from "./pages/admin/admin_dashboard/viewOrder";
 import UserLog from "./pages/admin/userlog/UserLog";
 import Payment from "./pages/Payment";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 const AppRoutes = () => {
   usePreventBackToLogin();
+  const hideNavbar = location.pathname === "/payment/success";
 
   return (
     <>
-
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       <ToastContainer />
       <Routes>
         <Route path="/placeorder" element={<PlaceOrder />} />
-               <Route path="/payment " element={<Payment />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+
         <Route element={<AdminRoutes />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/update/:id" element={<UpdateProduct />} />
           <Route path="/userlog" element={<UserLog />} />
         </Route>
+
         <Route element={<UserRoutes />}>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/Home" element={<Profile />} />
           <Route path="/product/:id" element={<ProductDetails />} />
-          
-       </Route>
+          <Route path="/payment/success" element={<PaymentSuccess />} />
+        </Route>
       </Routes>
     </>
   );
-};
+}
 
 function App() {
   return (

@@ -1,9 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import banner1 from "../../assets/images/banner1.png";
-import banner2 from "../../assets/images/banner2.png";
-import banner3 from "../../assets/images/banner3.png";
-import banner4 from "../../assets/images/banner4.png";
-import banner5 from "../../assets/images/banner5.png";
+
 import Carousel from "../../bookishComponents/Carousel";
 import Footer from "../../bookishComponents/Footer";
 
@@ -55,27 +51,8 @@ const Counter = ({ className, start, end, delay }) => {
 };
 
 const HomePage = () => {
-  const banners = [banner1, banner2, banner3, banner4, banner5];
-  const bannerContainerRef = useRef(null);
-  const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentBannerIndex((prevIndex) =>
-        prevIndex === banners.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [banners.length]);
-
-  useEffect(() => {
-    if (bannerContainerRef.current) {
-      bannerContainerRef.current.scrollLeft =
-        currentBannerIndex * bannerContainerRef.current.offsetWidth;
-    }
-  }, [currentBannerIndex]);
-
+ 
   const data = [
     {
       icon: "asset/images/counter/home3/1.png",

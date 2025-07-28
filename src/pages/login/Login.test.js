@@ -122,7 +122,7 @@ describe("Login Component", () => {
         JSON.stringify({ isAdmin: false })
       );
       // Assuming you use navigate or window.location.href for redirection
-      expect(window.location.href).toBe("/profile");
+      expect(window.location.href).toBe("/Home");
     });
   });
 
@@ -167,7 +167,7 @@ describe("Login Component", () => {
         JSON.stringify(userMock)
       );
       // Assuming you use navigate or window.location.href for redirection
-      expect(window.location.href).toBe("/profile");
+      expect(window.location.href).toBe("/Home");
     });
   });
 });

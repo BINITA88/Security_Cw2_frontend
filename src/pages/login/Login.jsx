@@ -137,42 +137,55 @@ const Login = () => {
 
     return isValid;
   };
+const handleLogin = (e) => {
+  e.preventDefault();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  if (!validateForm()) return;
 
-    if (isBlocked) {
-      showBlockToast();
-      return;
-    }
+  if (isBlocked) {
+    showBlockToast(); // Show only if block is active
+    return;
+  }
 
-    if (!validateForm()) {
-      setFailedAttempts((prev) => prev + 1);
-      return;
-    }
-
-    const data = {
-      email: validator.normalizeEmail(email.trim()),
-      password: password.trim(),
-      captchaToken: captchaToken,
-    };
-
-    loginUserApi(data)
-      .then((res) => {
-        if (res.data.success) {
-          toast.success("OTP is required. Please enter the OTP sent to your email.");
-          setUserId(res.data.userId);
-          setShowOtpModal(true);
-        } else {
-          toast.error(res.data.message || "Failed to login. Please try again.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setFailedAttempts((prev) => prev + 1);
-        showBlockToast();
-      });
+  const data = {
+    email: validator.normalizeEmail(email.trim()),
+    password: password.trim(),
+    captchaToken: captchaToken,
   };
+
+  loginUserApi(data)
+    .then((res) => {
+      if (res.data.success) {
+        toast.success("OTP is required. Please enter the OTP sent to your email.");
+        setUserId(res.data.userId);
+        setShowOtpModal(true);
+      } else {
+        toast.error(res.data.message || "Failed to login. Please try again.");
+      }
+    })
+    .catch((error) => {
+  console.error("Login error:", error);
+
+  const status = error?.response?.status;
+  const message = error?.response?.data?.message || "Login failed";
+
+  // ✅ Only show toast if backend confirms LOCK (status 429 + locked msg)
+  if (status === 429 && message.toLowerCase().includes("locked")) {
+    showBlockToast();       // Only now show the orange toast
+    setIsBlocked(true);
+
+    // Block UI for 10 minutes (optional)
+    setTimeout(() => {
+      setIsBlocked(false);
+    }, 10 * 60 * 1000);
+  } else {
+    // Don't show toast on wrong attempts < 3
+    toast.error(message); // Only basic error shown
+  }
+});
+
+};
+
 
   const handleVerifyOtp = () => {
     const sanitizedOtp = validator.escape(otp.trim());
@@ -193,7 +206,7 @@ const Login = () => {
           if (res.data.user.isAdmin) {
             window.location.href = "/admin/dashboard";
           } else {
-            window.location.href = "/profile";
+            window.location.href = "/Home";
           }
         } else {
           toast.error(res.data.message || "Failed to verify OTP");
@@ -212,7 +225,7 @@ const Login = () => {
           toast.success("Login Successful");
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("user", JSON.stringify(response.data.user));
-          window.location.href = "/profile";
+          window.location.href = "/Home";
         } else {
           console.error("Failed to send token to backend");
         }

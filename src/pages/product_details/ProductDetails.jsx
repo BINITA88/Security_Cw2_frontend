@@ -501,7 +501,7 @@ const ProductDetails = () => {
   };
 
   const handleSearch = () => {
-    if (searchQuery) navigate(`/profile?search=${searchQuery}`);
+    if (searchQuery) navigate(`/Home?search=${searchQuery}`);
   };
 
   const updateStockStatus = (product, qty) => {
@@ -528,7 +528,7 @@ const ProductDetails = () => {
               <div className="flex items-center space-x-3">
                 <BookOpen className="h-8 w-8 text-amber-200" />
                 <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-amber-200 to-orange-200 bg-clip-text text-transparent"   onClick={() => navigate("/profile")}>
+                  <h1 className="text-2xl font-bold bg-gradient-to-r from-amber-200 to-orange-200 bg-clip-text text-transparent"   onClick={() => navigate("/Home")}>
                     The Bookist
                   </h1>
                   <p className="text-amber-200 text-xs font-medium">Your Literary Haven</p>

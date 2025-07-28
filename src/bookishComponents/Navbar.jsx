@@ -19,7 +19,7 @@ const Navbar = () => {
     location.pathname === "/login" ||
     location.pathname === "/register" ||
     location.pathname === "/admin/dashboard" ||
-    location.pathname === "/profile" ||
+    location.pathname === "/Home" ||
     location.pathname.match(/^\/admin\/update\/.*/) ||
     location.pathname.match(/^\/product\/.*/) ||
     location.pathname.match(/^\/placeorder/)

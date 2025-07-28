@@ -39,8 +39,7 @@ describe("Profile Component", () => {
     // Check if the tabs are rendered
     expect(screen.getByText(/Shop Now/i)).toBeInTheDocument();
     expect(screen.getByText(/Cart/i)).toBeInTheDocument();
-    expect(screen.getByText(/Tyre Age Calculator/i)).toBeInTheDocument();
-    expect(screen.getByText(/Profile/i)).toBeInTheDocument();
+    expect(screen.getByText(/Home/i)).toBeInTheDocument();
 
     // Check if the Shop Now content is displayed by default
     expect(
@@ -62,13 +61,11 @@ describe("Profile Component", () => {
     fireEvent.click(screen.getByText(/Cart/i));
     expect(screen.getByText(/Your cart is empty./i)).toBeInTheDocument(); // Assuming Cart is initially empty
 
-    // Click on the Tyre Age Calculator tab
-    fireEvent.click(screen.getByText(/Tyre Age Calculator/i));
-    expect(screen.getByText(/Tire Age Calculator/i)).toBeInTheDocument();
+  
 
     // Click on the Profile tab
-    fireEvent.click(screen.getByText(/Profile/i));
-    expect(screen.getByText(/Your profile./i)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(/Home/i));
+    expect(screen.getByText(/Your Home./i)).toBeInTheDocument();
   });
 
   test("handles pagination correctly", async () => {

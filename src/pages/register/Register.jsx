@@ -476,10 +476,9 @@
 
 // export default Register;
 
-
-
 import React, { useState } from "react";
 import contactus from "../../asset/imgg/contactus.png";
+import otpImage from "../../asset/imgg/contactus.png";
 import "./Register.css";
 import { Link } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
@@ -487,18 +486,14 @@ import { registerUserApi, verifyRegistrationOtpApi } from "../../apis/Api";
 import validator from "validator";
 
 function Register() {
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
   const [userName, setUsername] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [otp, setOtp] = useState("");
-  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
+  const [isOtpScreen, setIsOtpScreen] = useState(false);
 
-  // const [firstNameError, setFirstNameError] = useState("");
-  // const [lastNameError, setLastNameError] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -591,13 +586,12 @@ function Register() {
       setFailedAttempts((prev) => prev + 1);
       if (failedAttempts >= 3) {
         setIsBlocked(true);
-        setTimeout(() => setIsBlocked(false), 15 * 60 * 1000);
+        setTimeout(() => setIsBlocked(false), 10 * 60 * 1000);
       }
       return;
     }
 
     const data = {
-
       userName: validator.escape(userName.trim()),
       phoneNumber: validator.escape(phoneNumber.trim()),
       email: validator.normalizeEmail(email.trim()),
@@ -608,7 +602,7 @@ function Register() {
       .then((response) => {
         if (response.data.success) {
           toast.success(response.data.message);
-          setIsOtpModalOpen(true);
+          setIsOtpScreen(true);
         } else {
           toast.error(response.data.message);
         }
@@ -629,7 +623,7 @@ function Register() {
       .then((response) => {
         if (response.data.success) {
           toast.success(response.data.message);
-          setIsOtpModalOpen(false);
+          setIsOtpScreen(false);
         } else {
           toast.error(response.data.message);
         }
@@ -642,58 +636,59 @@ function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#fffaf5] text-[#5a3210]">
       <Toaster />
-      <div className="bg-white shadow-md rounded-xl p-8 w-full max-w-5xl flex flex-col md:flex-row gap-8">
-        <div className="flex-1">
-          <h2 className="text-3xl font-bold mb-2">Register Now</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-         
-            <input type="text" name="username" placeholder="Username" value={userName} onChange={(e) => setUsername(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
-            {usernameError && <p className="text-red-500 text-sm">{usernameError}</p>}
+      <div className="bg-white shadow-md rounded-xl p-8 w-full max-w-6xl min-h-[540px] flex flex-col md:flex-row gap-8">
+        {!isOtpScreen ? (
+          <>
+            <div className="flex-1">
+              <h2 className="text-3xl font-bold mb-2">Register Now</h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input type="text" name="username" placeholder="Username" value={userName} onChange={(e) => setUsername(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
+                {usernameError && <p className="text-red-500 text-sm">{usernameError}</p>}
 
-            <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
-            {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
+                <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
+                {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
 
-            <input type="text" name="phone" placeholder="Phone Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
-            {phoneNumberError && <p className="text-red-500 text-sm">{phoneNumberError}</p>}
+                <input type="text" name="phone" placeholder="Phone Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
+                {phoneNumberError && <p className="text-red-500 text-sm">{phoneNumberError}</p>}
 
-            <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => handlePasswordChange(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
-            {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
+                <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => handlePasswordChange(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
+                {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
 
-            {/* Password checklist */}
-            <div className="text-sm space-y-1">
-              <p className={passwordChecks.length ? "text-green-600" : "text-red-500"}>{passwordChecks.length ? "✔" : "✘"} At least 8 characters</p>
-              <p className={passwordChecks.upper ? "text-green-600" : "text-red-500"}>{passwordChecks.upper ? "✔" : "✘"} One uppercase letter</p>
-              <p className={passwordChecks.lower ? "text-green-600" : "text-red-500"}>{passwordChecks.lower ? "✔" : "✘"} One lowercase letter</p>
-              <p className={passwordChecks.number ? "text-green-600" : "text-red-500"}>{passwordChecks.number ? "✔" : "✘"} One number</p>
-              <p className={passwordChecks.special ? "text-green-600" : "text-red-500"}>{passwordChecks.special ? "✔" : "✘"} One special character (@$!%*?&#)</p>
-            </div>
+                <div className="text-sm space-y-1">
+                  <p className={passwordChecks.length ? "text-green-600" : "text-red-500"}>{passwordChecks.length ? "✔" : "✘"} At least 8 characters</p>
+                  <p className={passwordChecks.upper ? "text-green-600" : "text-red-500"}>{passwordChecks.upper ? "✔" : "✘"} One uppercase letter</p>
+                  <p className={passwordChecks.lower ? "text-green-600" : "text-red-500"}>{passwordChecks.lower ? "✔" : "✘"} One lowercase letter</p>
+                  <p className={passwordChecks.number ? "text-green-600" : "text-red-500"}>{passwordChecks.number ? "✔" : "✘"} One number</p>
+                  <p className={passwordChecks.special ? "text-green-600" : "text-red-500"}>{passwordChecks.special ? "✔" : "✘"} One special character (@$!%*?&#)</p>
+                </div>
 
-            <input type="password" name="confirm-password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
-            {confirmPasswordError && <p className="text-red-500 text-sm">{confirmPasswordError}</p>}
+                <input type="password" name="confirm-password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md" />
+                {confirmPasswordError && <p className="text-red-500 text-sm">{confirmPasswordError}</p>}
 
-            <button type="submit" className="w-full bg-[#cf5c14] hover:bg-[#b74f10] text-white font-semibold py-3 rounded-md shadow">Register</button>
-          </form>
-
-          <div className="mt-4 text-sm">
-            <p>Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link></p>
-          </div>
-        </div>
-
-        <div className="hidden md:block flex-1">
-          <img src={contactus} alt="Register" className="rounded-lg w-full h-full object-cover" />
-        </div>
-
-        {isOtpModalOpen && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
-              <h3 className="text-lg font-semibold mb-4">Verify Your OTP</h3>
-              <input type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md mb-4" />
-              <div className="flex justify-between">
-                <button onClick={handleOtpVerification} className="bg-[#cf5c14] text-white px-4 py-2 rounded-md">Verify OTP</button>
-                <button onClick={() => setIsOtpModalOpen(false)} className="text-gray-500">Cancel</button>
+                <button type="submit" className="w-full bg-[#cf5c14] hover:bg-[#b74f10] text-white font-semibold py-3 rounded-md shadow">Register</button>
+              </form>
+              <div className="mt-4 text-sm">
+                <p>Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link></p>
               </div>
             </div>
-          </div>
+            <div className="hidden md:block flex-1">
+              <img src={contactus} alt="Register" className="rounded-lg w-full h-full object-cover" />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="hidden md:block flex-1">
+              <img src={otpImage} alt="OTP Verification" className="rounded-lg w-full h-full object-cover" />
+            </div>
+            <div className="flex-1 flex flex-col justify-center">
+              <h3 className="text-2xl font-semibold mb-4">Verify Your OTP</h3>
+              <input type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} className="w-full p-3 border border-[#d3b79c] rounded-md mb-4" />
+              <div className="flex gap-4">
+                <button onClick={handleOtpVerification} className="bg-[#cf5c14] text-white px-4 py-2 rounded-md">Verify OTP</button>
+                <button onClick={() => setIsOtpScreen(false)} className="text-gray-500">Back</button>
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>

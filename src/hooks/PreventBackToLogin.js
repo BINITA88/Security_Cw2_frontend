@@ -10,7 +10,7 @@ const usePreventBackToLogin = () => {
   useEffect(() => {
     const handlePopState = (event) => {
       if (location.pathname === '/login' && localStorage.getItem('token')) {
-        navigate('/profile', { replace: true });
+        navigate('/Home', { replace: true });
       }
     };
 
