@@ -14,6 +14,7 @@ const CounterThree = () => {
             label: " Writers",
             delay: 100,
         },
+        // dd
         {
             icon: "asset/images/counter/home3/3.png",
             value: 5,
