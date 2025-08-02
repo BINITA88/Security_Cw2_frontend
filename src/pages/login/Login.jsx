@@ -33,31 +33,6 @@ const Login = () => {
   const [resetPasswordOtp, setResetPasswordOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
-  const [failedAttempts, setFailedAttempts] = useState(0);
-  const [isBlocked, setIsBlocked] = useState(false);
-
-  const showBlockToast = () => {
-    toast.custom((t) => (
-      <div
-        className={`${
-          t.visible ? "animate-enter" : "animate-leave"
-        } max-w-md w-full bg-[#cf5c14] text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 p-4`}
-      >
-        <div className="flex-1 w-0">
-          <p className="text-sm font-medium">Too Many Failed Attempts</p>
-          <p className="mt-1 text-sm">You are blocked for 10 minutes.</p>
-        </div>
-        <div className="ml-4 flex-shrink-0 flex">
-          <button
-            onClick={() => toast.dismiss(t.id)}
-            className="text-white font-bold hover:text-gray-100"
-          >
-            OK
-          </button>
-        </div>
-      </div>
-    ));
-  };
 
   const checkTokenExpiry = () => {
     const token = localStorage.getItem("token");
@@ -98,18 +73,6 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (failedAttempts >= 3) {
-      setIsBlocked(true);
-      showBlockToast();
-      const timer = setTimeout(() => {
-        setIsBlocked(false);
-        setFailedAttempts(0);
-      }, 10 * 60 * 1000); 
-      return () => clearTimeout(timer);
-    }
-  }, [failedAttempts]);
-
-  useEffect(() => {
     const interval = setInterval(checkTokenExpiry, 60 * 1000);
     return () => clearInterval(interval);
   }, []);
@@ -137,55 +100,32 @@ const Login = () => {
 
     return isValid;
   };
-const handleLogin = (e) => {
-  e.preventDefault();
 
-  if (!validateForm()) return;
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
 
-  if (isBlocked) {
-    showBlockToast(); // Show only if block is active
-    return;
-  }
+    const data = {
+      email: validator.normalizeEmail(email.trim()),
+      password: password.trim(),
+      captchaToken: captchaToken,
+    };
 
-  const data = {
-    email: validator.normalizeEmail(email.trim()),
-    password: password.trim(),
-    captchaToken: captchaToken,
+    loginUserApi(data)
+      .then((res) => {
+        if (res.data.success) {
+          toast.success("OTP is required. Please enter the OTP sent to your email.");
+          setUserId(res.data.userId);
+          setShowOtpModal(true);
+        } else {
+          toast.error(res.data.message || "Failed to login. Please try again.");
+        }
+      })
+      .catch((error) => {
+        const message = error?.response?.data?.message || "Login failed";
+        toast.error(message);
+      });
   };
-
-  loginUserApi(data)
-    .then((res) => {
-      if (res.data.success) {
-        toast.success("OTP is required. Please enter the OTP sent to your email.");
-        setUserId(res.data.userId);
-        setShowOtpModal(true);
-      } else {
-        toast.error(res.data.message || "Failed to login. Please try again.");
-      }
-    })
-    .catch((error) => {
-  console.error("Login error:", error);
-
-  const status = error?.response?.status;
-  const message = error?.response?.data?.message || "Login failed";
-
-  // ✅ Only show toast if backend confirms LOCK (status 429 + locked msg)
-  if (status === 429 && message.toLowerCase().includes("locked")) {
-    showBlockToast();       // Only now show the orange toast
-    setIsBlocked(true);
-
-    // Block UI for 10 minutes (optional)
-    setTimeout(() => {
-      setIsBlocked(false);
-    }, 10 * 60 * 1000);
-  } else {
-    // Don't show toast on wrong attempts < 3
-    toast.error(message); // Only basic error shown
-  }
-});
-
-};
-
 
   const handleVerifyOtp = () => {
     const sanitizedOtp = validator.escape(otp.trim());
@@ -212,8 +152,7 @@ const handleLogin = (e) => {
           toast.error(res.data.message || "Failed to verify OTP");
         }
       })
-      .catch((error) => {
-        console.error("Error verifying OTP:", error);
+      .catch(() => {
         toast.error("Error verifying OTP");
       });
   };
@@ -226,11 +165,9 @@ const handleLogin = (e) => {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("user", JSON.stringify(response.data.user));
           window.location.href = "/Home";
-        } else {
-          console.error("Failed to send token to backend");
         }
       })
-      .catch((error) => console.error("Error sending token to backend:", error));
+      .catch(() => toast.error("Error with Google login"));
   };
 
   const handleForgotPassword = () => {
@@ -254,18 +191,12 @@ const handleLogin = (e) => {
           toast.error(res.data.message || "Failed to send OTP.");
         }
       })
-      .catch((error) => {
-        console.error("Error sending OTP:", error);
+      .catch(() => {
         toast.error("Failed to send OTP. Please try again.");
       });
   };
 
   const handleResetPassword = () => {
-    if (isBlocked) {
-      showBlockToast();
-      return;
-    }
-
     const sanitizedOtp = validator.escape(resetPasswordOtp.trim());
     const sanitizedNewPassword = newPassword.trim();
 
@@ -278,7 +209,7 @@ const handleLogin = (e) => {
       toast.error("Password must be at least 8 characters long");
       return;
     }
-
+///gklkgkhnk
     verifyOtpAndResetPasswordApi({
       phoneNumber: validator.escape(phoneNumber.trim()),
       otp: sanitizedOtp,
@@ -288,19 +219,14 @@ const handleLogin = (e) => {
         if (res.data.success) {
           toast.success("Password reset successfully!");
           setShowResetPasswordModal(false);
-          setFailedAttempts(0);
         } else {
-          setFailedAttempts((prev) => prev + 1);
-          showBlockToast();
+          toast.error(res.data.message || "Invalid OTP");
         }
       })
-      .catch((error) => {
-        console.error("Error resetting password:", error);
-        setFailedAttempts((prev) => prev + 1);
-        showBlockToast();
+      .catch(() => {
+        toast.error("Error resetting password");
       });
   };
-
 
   // return (
   //   <div className="login-container">

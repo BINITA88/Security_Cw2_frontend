@@ -22,7 +22,7 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 
 const AppRoutes = () => {
   usePreventBackToLogin();
-  const hideNavbar = location.pathname === "/payment/success";
+  const hideNavbar = window.pathname === "/payment/success";
 
   return (
     <>
